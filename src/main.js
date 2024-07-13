@@ -1,5 +1,8 @@
 'use-strict'
 
+import  Popup  from './popup.js';
+
+
 const gameBtn =document.querySelector('.game__btn');
 const gameBody =document.querySelector('.game__body');
 const gameBodyRect =gameBody.getBoundingClientRect();
@@ -8,9 +11,6 @@ const gameTimer = document.querySelector('.timer');
 const gameTimerClock =document.querySelector('.timer__clock');
 const gameCount =document.querySelector('.count');
 
-const replayPopup = document.querySelector('.replayPopup');
-const replayBtn= document.querySelector('.replayBtn');
-const replayText= document.querySelector('.replayText');
 
 
 const BUG_COUNT= 5;
@@ -33,10 +33,13 @@ let started= false; // 게임 시작 유무
 
 
 
+    const gameReplayPopup = new Popup();
+
+    gameReplayPopup.setClickListener(()=>startGame());
+
 
 
     gameBody.addEventListener('click',(event)=>onBodyClick(event));
-
 
 
     function onBodyClick(event){
@@ -59,43 +62,37 @@ let started= false; // 게임 시작 유무
 
     function finishGame(win){
         started= false;
+        hideGameBtn();
+        noClickImg();
         stopTimer();
         stopSound(bgSound);
 
         if(win){
-            showReplayToggle('You Won🎉');
+            gameReplayPopup.showWithText('You Won🎉');
             playSound(gameWinSound);
         }
         else{
-            showReplayToggle('You Lost😥');
+            gameReplayPopup.showWithText('You Lost😥');
             playSound(bugSound);
         }
      }
 
-     replayBtn.addEventListener('click',()=>{
-        startGame();
-    })
+     function noClickImg(){
+        const images =document.querySelectorAll('img');
+        images.forEach(image=>image.classList.add('pointerNone'));
+     }
 
 
     gameBtn.addEventListener('click',(event)=>{
-        //  정지 버튼 누를 경우
         if(started===true){
             stopGame();
-            //  게임버튼 생략
-            //  리플레이 토글창이 나와야하고
-            //  시간이 멈춰야 히고
-            //  배경음악이 멈춰야히고
-            //  리플레이 토글 음악이 나와야한다.
         }
-        //  시작 버튼 누를 경우
         else{
             startGame();
-            //  벌레 당근이 랜덤배치
         }
      })
      
 
- 
      function startGame(){
         started=true;
         initGame();
@@ -128,13 +125,13 @@ let started= false; // 게임 시작 유무
         icon.classList.add('fa-stop');
 
         gameCount.innerText=CARROT_COUNT;
-        gameBtn.classList.remove('unvisible');
+        showGameBtn();
    
         gameTimer.style.visibility ="visible";
         gameCount.style.visibility ="visible";
         playSound(bgSound);
 
-        replayPopup.classList.add('unvisible');
+        gameReplayPopup.hide();
         score=0;
 
     }
@@ -164,30 +161,25 @@ let started= false; // 게임 시작 유무
        }
    }
 
-
-
      function stopGame(){
         stopTimer();
-        showReplayToggle("Replay❓");
+        hideGameBtn();
+        noClickImg();
+        gameReplayPopup.showWithText('Replay❓');
         stopSound(bgSound);
         playSound(replayAlertSound);
 
      }
 
-  
     function stopTimer(){
         clearInterval(playTimer);
     }
-
-
-    
-    function showReplayToggle(text){
-        replayPopup.classList.remove('unvisible');
+    function hideGameBtn(){
         gameBtn.classList.add('unvisible');
-        replayText.innerText =text;
-        const images =document.querySelectorAll('img');
-        images.forEach(image=>image.classList.add('pointerNone'));
-        
+    }
+
+    function showGameBtn(){
+        gameBtn.classList.remove('unvisible');
     }
 
     function playSound(sound){
