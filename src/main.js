@@ -2,7 +2,7 @@
 
 import  Popup  from './popup.js';
 import  Field  from './field.js';
-
+import * as sound from './sound.js';
 
 
 const gameBtn =document.querySelector('.game__btn');
@@ -17,13 +17,6 @@ const BUG_COUNT= 5;
 const CARROT_COUNT= 5;
 const TIME = 5;
 
-
-// sound 변수
-const carrotSound =new Audio('sound/carrot_pull.mp3');
-const bugSound =new Audio('sound/bug_pull.mp3');
-const gameWinSound =new Audio('sound/game_win.mp3');
-const replayAlertSound =new Audio('sound/alert.wav');
-const bgSound =new Audio('sound/bg.mp3');
 
 
 let playTimer;  // setInterval 함수를 받는 변수
@@ -44,13 +37,12 @@ let started= false; // 게임 시작 유무
 
     function onFieldClick(item){
                   if(item==='carrot'){
-                    playSound(carrotSound);
+                    sound.playCarrot();
                     gameCount.innerText= CARROT_COUNT- ++score;
                         if(CARROT_COUNT===score){
                             finishGame(true);
                         }
                 }
-                //  벌레 클릭시
                 else if(item==='bug'){
                     finishGame(false);
                 }   
@@ -63,15 +55,16 @@ let started= false; // 게임 시작 유무
         hideGameBtn();
         noClickImg();
         stopTimer();
-        stopSound(bgSound);
+        sound.stopBg();
 
         if(win){
             gameReplayPopup.showWithText('You Won🎉');
-            playSound(gameWinSound);
+
+            sound.playWin();
         }
         else{
             gameReplayPopup.showWithText('You Lost😥');
-            playSound(bugSound);
+            sound.playBug();
         }
      }
 
@@ -127,7 +120,7 @@ let started= false; // 게임 시작 유무
    
         gameTimer.style.visibility ="visible";
         gameCount.style.visibility ="visible";
-        playSound(bgSound);
+        sound.playBg();
 
         gameReplayPopup.hide();
         score=0;
@@ -140,8 +133,8 @@ let started= false; // 게임 시작 유무
         hideGameBtn();
         noClickImg();
         gameReplayPopup.showWithText('Replay❓');
-        stopSound(bgSound);
-        playSound(replayAlertSound);
+        sound.stopBg();
+        sound.playAlert();
 
      }
 
@@ -156,13 +149,7 @@ let started= false; // 게임 시작 유무
         gameBtn.classList.remove('unvisible');
     }
 
-    function playSound(sound){
-        sound.currentTime=0;
-        sound.play();
-    }
-    function stopSound(sound){
-        sound.pause();
-    }
+
 
 
 

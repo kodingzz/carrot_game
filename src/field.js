@@ -6,12 +6,9 @@ export default class Field{
     constructor(CARROT_COUNT,BUG_COUNT){
         this.CARROT_COUNT = CARROT_COUNT;
         this.BUG_COUNT =BUG_COUNT;
-        this.CARROT_COUNT= 5;
         this.CARROT_SIZE=80;
         this.gameBody =document.querySelector('.game__body');
         this.gameBodyRect =this.gameBody.getBoundingClientRect();
-        this.score = 0;
-        
         this.gameBody.addEventListener('click',(event)=>{
            this.onClick && this.onClick(event);
         });
@@ -27,7 +24,6 @@ export default class Field{
              target.remove();
             this.onItemClick&& this.onItemClick('carrot');
         }
-        //  벌레 클릭시
         else if(target.classList.contains('bug')){
            
             this.onItemClick&& this.onItemClick('bug');
