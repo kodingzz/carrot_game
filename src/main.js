@@ -1,17 +1,14 @@
 'use-strict'
 
 import  Popup  from './popup.js';
-import Game from './game.js';
+import {Game, Reason} from './game.js';
 import * as sound from './sound.js';
 
 
     const gameReplayPopup = new Popup();
 
-    gameReplayPopup.setClickListener(()=>{
-        game.start();
-        sound.playBg();
-    }
-);
+    gameReplayPopup.setClickListener(()=>game.start());
+
 
 
     const game = new Game(5,5,5);  // TIME BUGCOUNT CARROTCOUNT
@@ -19,15 +16,15 @@ import * as sound from './sound.js';
     game.setGameStopListener((reason)=>{
         let message;
         switch(reason){
-            case 'win':
+            case Reason.win:
                 message = "You Won🎉";
                 sound.playWin();
                 break;
-            case 'lose':
+            case Reason.lose:
                 message= 'You Lost😥';
                 sound.playBug();    
                 break;
-            case 'replay':
+            case Reason.replay:
                 message= 'Replay❓';
                 sound.playAlert();
                 break;

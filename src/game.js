@@ -1,20 +1,26 @@
 'use-strict';
 
-import  Field  from './field.js';
+import  {Field, Type}  from './field.js';
 import * as sound from './sound.js';
 
 
 
-export default class Game{
+export const Reason = Object.freeze({
+    win : "win",
+    lose: 'lose',
+    replay :"replay",
+})
+
+export  class Game{
     constructor(TIME,BUG_COUNT,CARROT_COUNT){
-        this.started= false; // 게임 시작 유무
+        this.started= false; 
         this.BUG_COUNT= BUG_COUNT;
         this.CARROT_COUNT= CARROT_COUNT;
         this.TIME= TIME;
         this.score= 0;
         this.playTimer=undefined;
         this.gameField= new Field(this.CARROT_COUNT,this.BUG_COUNT);
-        this.gameField.setClickListener((item)=>this.onFieldClick(item));
+        this.gameField.setClickListener((item)=>this.onItemClick(item));
         this.gameBtn =document.querySelector('.game__btn');
         this.gameTimer = document.querySelector('.timer');
         this.gameTimerClock =document.querySelector('.timer__clock');
@@ -22,7 +28,7 @@ export default class Game{
 
         this.gameBtn.addEventListener('click',()=>{
             if(this.started===true){
-                this.stop();
+                this.stopOrFinish(Reason.replay);
             }
             else{
                 this.start();
@@ -44,7 +50,7 @@ export default class Game{
         this.gameCount.innerText=this.CARROT_COUNT;
         this.showGameBtn();
         this.showTimerAndCount();
-        // sound.playBg();
+        sound.playBg();
         this.score=0;
 
     }
@@ -66,7 +72,7 @@ export default class Game{
         this.playTimer = setInterval(()=>{
             if(remainingTime<=0){
                 clearInterval(this.playTimer);
-                this.finish(false);
+                this.stopOrFinish(Reason.lose);
                 return;
             }
             this.updateTimerText(--remainingTime);
@@ -77,12 +83,13 @@ export default class Game{
         const sec= time%60;
        this.gameTimerClock.innerText =`${min}:${sec}`;
     }
-    stop(){
+
+    stopOrFinish(reason){
+        this.started=false;
         this.stopTimer();
         this.hideGameBtn();
         this.noClickImg();
-        this.onGameStop && this.onGameStop('replay');
-        // sound.stopBg();
+        this.onGameStop && this.onGameStop(reason);
     }
     stopTimer(){
         clearInterval(this.playTimer);
@@ -95,32 +102,18 @@ export default class Game{
         images.forEach(image=>image.classList.add('pointerNone'));
     }
     
-    finish(win){
-        this.started= false;
-        this.hideGameBtn();
-        this.noClickImg();
-        this.stopTimer();
-        // sound.stopBg();
-
-        if(win){
-            this.onGameStop && this.onGameStop('win');
-        }
-        else{
-            this.onGameStop && this.onGameStop('lose');
-        }
-    }
-    onFieldClick(item){
-        if(item==='carrot'){
+   
+    onItemClick(item){
+        if(item===Type.carrot){
           sound.playCarrot();
           this.gameCount.innerText= this.CARROT_COUNT- ++this.score;
               if(this.CARROT_COUNT===this.score){
-                  this.finish(true);
+                this.stopOrFinish(Reason.win);
               }
       }
-      else if(item==='bug'){
-          this.finish(false);
+      else if(item===Type.bug){
+        this.stopOrFinish(Reason.lose);
       }   
-
 }
 
 }

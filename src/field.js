@@ -1,8 +1,11 @@
 'use-strict';
 
+export const Type =Object.freeze({
+    carrot :'carrot',
+    bug :'bug',
+})
 
-
-export default class Field{
+export  class Field{
     constructor(CARROT_COUNT,BUG_COUNT){
         this.CARROT_COUNT = CARROT_COUNT;
         this.BUG_COUNT =BUG_COUNT;
@@ -20,13 +23,13 @@ export default class Field{
 
     onClick(event){
         const target= event.target;
-        if(target.classList.contains('carrot')){
+        if(target.classList.contains(Type.carrot)){
              target.remove();
-            this.onItemClick&& this.onItemClick('carrot');
+            this.onItemClick&& this.onItemClick(Type.carrot);
         }
-        else if(target.classList.contains('bug')){
+        else if(target.classList.contains(Type.bug)){
            
-            this.onItemClick&& this.onItemClick('bug');
+            this.onItemClick&& this.onItemClick(Type.bug);
 
         }   
 
@@ -34,8 +37,8 @@ export default class Field{
 
     initRandom(){
         this.gameBody.innerHTML='';
-        this.addItem('carrot',this.CARROT_COUNT,'img/carrot.png');
-        this.addItem('bug',this.BUG_COUNT,'img/bug.png');
+        this.addItem(Type.carrot,this.CARROT_COUNT,'img/carrot.png');
+        this.addItem(Type.bug,this.BUG_COUNT,'img/bug.png');
     }
     
     addItem(className,score,imgPath){
