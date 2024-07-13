@@ -28,8 +28,7 @@ body{
 }
 
 section{
-    height: 50%;
-    width: 100%;
+
     text-align: center;
    
 }
@@ -40,7 +39,7 @@ button{
 }
 
 button:hover{
-    transform: scale(1.3);
+    transform: scale(1.2);
 }
 
 
@@ -50,7 +49,13 @@ button:hover{
   align-items: center;
   padding: 1rem;
 }
-.playStop__btn{
+
+
+.game__header, .game__body{
+    width: 100%;
+    height: 50% ;
+}
+.game__btn{
     display: inline-block;
     width: 70px;
     height: 70px;
@@ -71,6 +76,9 @@ button:hover{
     display: flex;
     justify-content: center;
     align-items: center;
+    visibility: hidden;
+    user-select: auto;
+    cursor: auto;
 }
 .timer__clock{
    font-size: 30px;
@@ -84,10 +92,14 @@ button:hover{
     border: 3px solid var(--color-border);
     background-color: var(--color-bgCount);
     text-align: center;
-    font-size: 40px;
+    font-size: 44px;
     font-weight: 600;
     line-height: 60px;
     color: var(--color-white);
+    visibility: hidden;
+    user-select: auto;
+    cursor: auto;
+
 }
 
 .game__body{
@@ -99,7 +111,8 @@ button:hover{
     background-color: transparent;
     border: none;
     position: absolute;
-   
+    width: 50px;
+    height: 50px;
 }
 
 
@@ -112,35 +125,58 @@ button:hover{
     display: none;
 }
 
-.replayToggle{
+.replayPopup{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 50%;
-    height: 50%;
+    width: 400px;
+    height: 200px;
     margin: auto;
-    margin-top: 100px;
-    z-index: 100;
+    z-index: 2;
     border-radius: 20px;
     color: var(--color-white);
-
-    background-color: var(--color-border);
-    opacity: 0.6;
+    /* background-color: #00000050; */
+    /* background-color:black;
+    opacity: 0.7; */
+    /* background-color: rgba(0, 0, 0, 0.5); 배경에만 투명도를 적용 */
+    position: absolute;
+    top: 400px;
 }
-
+.background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5; /* 배경에만 투명도를 적용 */
+    z-index: 1;
+    border-radius: var(--border-radius);
+}
+.content{
+    position: relative;
+    color: white;
+    z-index: 2; /* 배경 위에 표시되도록 z-index 설정 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .replayBtn{
     width: 70px;
     height: 70px;
     font-size:var(--size-icon);
-    border-radius: var(--border-radius);
+    border-radius: 50%;
     border: 3px solid var(--color-border);
-    opacity: 1;
+    background-color: var(--color-playbtn);
+    
+}
+
+.replayText{
+    font-size: 35px;
 
 }
 
-.replayText, .lostText{
-    font-size: 35px;
-    opacity: 1;
-
+.pointerNone{
+    pointer-events: none;
 }

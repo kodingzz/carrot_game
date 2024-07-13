@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="#">
     <script src="src/main.js" defer></script>
+    <script src="src/popup.js" defer></script>
+
     <title>Carrot game</title>
 </head>
 <body>
     <section class="game__header">
-        <button class="playStop__btn"><i class="fa-solid fa-play"></i></button>
+        <button class="game__btn"><i class="btn__icon fa-solid fa-play"></i></button>
         <div class="timer">
             <span class="timer__clock">00:00</span>
         </div>
@@ -20,51 +23,18 @@
 
 
 
-    <section class="game__body unvisible">
-        <button class="btn"><img src="img/bug.png"  class="bug" alt="벌레"></button>
-        <button class="btn"><img src="img/bug.png" class="bug" alt="벌레"></button>
-        <button class="btn"><img src="img/bug.png" class="bug" alt="벌레"></button>
-        <button class="btn"><img src="img/bug.png" class="bug" alt="벌레"></button>
-        <button class="btn"><img src="img/bug.png"  class="bug"alt="벌레"></button>
-        <button class="btn"><img src="img/bug.png" class="bug" alt="벌레"></button>
-        <button class="btn"><img src="img/bug.png" class="bug" alt="벌레"></button>
-        <button class="btn"><img src="img/bug.png"class="bug"  alt="벌레"></button>
-        <button class="btn"><img src="img/bug.png" class="bug" alt="벌레"></button>
-        <button class="btn"><img src="img/bug.png"  class="bug" alt="벌레"></button>
-        <button class="btn"><img src="img/bug.png"  class="bug" alt="벌레"></button>
-        <button class="btn"><img src="img/bug.png"  class="bug" alt="벌레"></button>
-        <button class="btn"><img src="img/bug.png"  class="bug" alt="벌레"></button>
-        <button class="btn"><img src="img/bug.png"  class="bug" alt="벌레"></button>
-
-
-
-        <button class="btn"><img src="img/carrot.png" class="carrot" alt="당근"></button>
-        <button class="btn"><img src="img/carrot.png" class="carrot" alt="당근"></button>
-        <button class="btn"><img src="img/carrot.png"  class="carrot" alt="당근"></button>
-        <button class="btn"><img src="img/carrot.png"class="carrot"  alt="당근"></button>
-        <button class="btn"><img src="img/carrot.png" class="carrot" alt="당근"></button>
-        <button class="btn"><img src="img/carrot.png"class="carrot"  alt="당근"></button>
-        <button class="btn"><img src="img/carrot.png" class="carrot" alt="당근"></button>
-        <button class="btn"><img src="img/carrot.png" class="carrot" alt="당근"></button>
-        <button class="btn"><img src="img/carrot.png"class="carrot"  alt="당근"></button>
-        <button class="btn"><img src="img/carrot.png" class="carrot" alt="당근"></button>
-
-        <section class="replayToggle unvisible">
-            <button class="replayBtn"><i class="fa-solid fa-reply"></i></button>
-            <span class="replayText">Replay❓</span>
-
-        </section>
-
+    <section class="game__body ">
        
     </section>
 
-    <audio class="clickCarrotSound" src="sound/carrot_pull.mp3"></audio>
-    <audio class="clickBugSound" src="sound/bug_pull.mp3"></audio>
-    <audio class="gameWinSound" src="sound/game_win.mp3"></audio>
-    <audio class="replayAlertSound" src="sound/alert.wav"></audio>
-    <audio class="bgSound" src="sound/bg.mp3"></audio>
+    <section class="replayPopup unvisible">
+        <div class="background"></div>
+        <div class="content">
+            <button class="replayBtn"><i class="fa-solid fa-rotate-right"></i></button>
+            <span class="replayText">Replay❓</span>        
+        </div>
 
-
+    </section>
 
 </body>
 </html>
