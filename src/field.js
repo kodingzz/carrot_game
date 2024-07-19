@@ -21,6 +21,11 @@ export  class Field{
         this.onItemClick= onItemClick;
     }
 
+    setItemCount(bugCount,carrotCount){
+        this.BUG_COUNT= bugCount;
+        this.CARROT_COUNT =carrotCount;
+    }
+    
     onClick(event){
         const target= event.target;
         if(target.classList.contains(Type.carrot)){

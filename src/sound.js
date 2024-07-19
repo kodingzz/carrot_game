@@ -7,6 +7,7 @@ const bugSound =new Audio('sound/bug_pull.mp3');
 const gameWinSound =new Audio('sound/game_win.mp3');
 const replayAlertSound =new Audio('sound/alert.wav');
 const bgSound =new Audio('sound/bg.mp3');
+const gameChampionSound =new Audio('sound/game_champion.mp3');
 
 
 function playSound(sound){
@@ -41,4 +42,7 @@ export function playWin(){
 }
 export function playAlert(){
     playSound(replayAlertSound);
+}
+export function playChampion(){
+    playSound(gameChampionSound);
 }

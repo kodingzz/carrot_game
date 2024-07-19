@@ -19,6 +19,17 @@ export default class Popup{
     }
     showWithText(text){
         this.replayText.innerText= text;
+        if(text==='Go next level!👍'){
+            this.replayBtn.innerHTML=`
+           <i class="fa-solid fa-arrow-right"></i>
+            `
+        }
+        else{
+            this.replayBtn.innerHTML=
+            `
+            <i class="fa-solid fa-rotate-right"></i>
+            `
+        }
         this.replayPopup.classList.remove('unvisible');
     }
 
